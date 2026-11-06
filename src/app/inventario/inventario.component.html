@@ -1,0 +1,22 @@
+<header class="dashboard-kpi">
+  <h2>Resumen</h2>
+  <p>Valor total del inventario: ${{ valorTotalInventario() }}</p>
+</header>
+
+<input
+  type="text"
+  placeholder="Buscar por nombre"
+  [value]="filtro()"
+  (input)="filtro.set($any($event.target).value)"
+/>
+
+@for (item of productosFiltrados(); track item.id) {
+  <div class="product-row">
+    <span>{{ item.nombre }}</span>
+    <span>Precio: ${{ item.precio }}</span>
+    <span>Stock: {{ item.stock }}</span>
+    <button (click)="reducirStock(item.id, 1)" [disabled]="item.stock === 0">
+      Reducir stock
+    </button>
+  </div>
+}
