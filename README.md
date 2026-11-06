@@ -19,6 +19,7 @@ src/app/
 ├── services/user.service.ts         # Comunicación con la API (login, getProfile, token)
 ├── interceptors/auth.interceptor.ts # Agrega el Bearer token a las peticiones
 ├── login/                           # Componente de login (ts, html, css)
+├── inventario/                      # Panel de Inventario con signal, computed y effect
 └── app.config.ts                    # provideHttpClient + interceptor
 ```
 
@@ -49,6 +50,18 @@ Abrí `http://localhost:4200`. Si la API está en otra dirección, cambiá `API_
 ## Probar el login
 
 Registrá un usuario desde Swagger (`http://localhost:5010/swagger`, `POST /api/User/register`) y usá ese correo y clave en la pantalla.
+
+## Panel de Inventario (Signals)
+
+Componente standalone `InventarioComponent` que aplica la reactividad moderna de Angular. Se muestra **debajo del login**: hay que bajar en la página para verlo. No necesita la API.
+
+| Consigna | Dónde está | Cómo probarlo |
+|---|---|---|
+| `signal` | `productos` (lista inicial) y `filtro` (texto de búsqueda) | Los 3 productos y el buscador |
+| `computed` | `productosFiltrados` | Escribir "mon" en el buscador: solo queda el Monitor |
+| `computed` | `valorTotalInventario` (suma de `precio * stock`) | El total inicial es $11100 y se actualiza solo al reducir stock |
+| `effect` | En el `constructor`, guarda `cantidad_productos` en `localStorage` | F12 → Application → Local Storage → `cantidad_productos` = 3 |
+| `@for` + `.update()` | Plantilla y método `reducirStock` | El botón "Reducir stock" baja el stock en 1 y se desactiva en 0 |
 
 ## Comandos útiles
 
